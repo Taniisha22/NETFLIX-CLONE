@@ -26,7 +26,7 @@ class Account {
         
         $pw = hash("sha512", $pw);
         
-        $query = $this->con->prepare("INSERT INTO users (firstname, lastName, username, email, password)
+        $query = $this->con->prepare("INSERT INTO users (firstName, lastName, username, email, password)
                                         VALUES (:fn, :ln, :un, :em, :pw)");
         $query->bindValue(":fn", $fn);
         $query->bindValue(":ln", $ln);
