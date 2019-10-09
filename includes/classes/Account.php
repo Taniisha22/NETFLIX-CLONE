@@ -11,6 +11,7 @@ class Account {
     public function register($fn, $ln, $un, $em, $em2, $pw, $pw2) {
         $this->validateFirstName($fn);
         $this->validateLastName($fn);
+        $this->validateUsername($fn);
     }
 
     private function validateFirstName($fn) {
@@ -22,6 +23,22 @@ class Account {
     private function validateLastName($ln) {
         if(strlen($ln) < 2 || strlen($ln) > 25) {
             array_push($this->errorArray, Constants::$lastNameCharacters);
+        }
+    }
+
+    private function validateUsername($un) {
+        if(strlen($un) < 2 || strlen($un) > 25) {
+            array_push($this->errorArray, Constants::$usernameCharacters);
+            return;
+        }
+
+        $query = $this->con->prepare("SELECT * FROM users WHERE username=:un");
+        $query->bindValue(":un", $un);
+
+        $query->execute();
+        
+        if($query->rowCount() != 0) {
+            array_push($this->errorArray, Constants::$usernameTaken);
         }
     }
 

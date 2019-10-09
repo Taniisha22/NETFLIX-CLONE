@@ -44,7 +44,9 @@ require_once("includes/classes/Account.php");
 
                     <?php echo $account->getError(Constants::$lastNameCharacters); ?>
                     <input type="text" name="lastName" placeholder="Last name" required>
-
+                    
+                    <?php echo $account->getError(Constants::$usernameCharacters); ?>
+                    <?php echo $account->getError(Constants::$usernameTaken); ?>
                     <input type="text" name="username" placeholder="Username" required>
 
                     <input type="email" name="email" placeholder="Email" required>
