@@ -14,6 +14,8 @@ $userLoggedIn = $_SESSION["userLoggedIn"];
     <head>
         <title>Welcome to Reeceflix</title>
         <link rel="stylesheet" type="text/css" href="assets/style/style.css" />
+
+        <script src="https://kit.fontawesome.com/06a651c8da.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <div class='wrapper'>
