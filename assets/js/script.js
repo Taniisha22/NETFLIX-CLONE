@@ -41,16 +41,33 @@ function updateProgressTimer(videoId, username) {
     $("video").on("playing", function(event) {
         window.clearInterval(timer);
         timer = window.setInterval(function() {
-            console.log("hi");
+            updateProgress(videoId, username, event.target.currentTime);
         }, 3000);
     })
     .on("ended", function() {
+        setFinished(videoId, username);
         window.clearInterval(timer);
     })
 }
 
 function addDuration(videoId, username) {
     $.post("ajax/addDuration.php", { videoId: videoId, username: username }, function(data) {
+        if(data !== null && data !== "") {
+            alert(data);
+        }
+    })
+}
+
+function updateProgress(videoId, username, progress) {
+    $.post("ajax/updateDuration.php", { videoId: videoId, username: username, progress: progress }, function(data) {
+        if(data !== null && data !== "") {
+            alert(data);
+        }
+    })
+}
+
+function setFinished(videoId, username) {
+    $.post("ajax/setFinished.php", { videoId: videoId, username: username }, function(data) {
         if(data !== null && data !== "") {
             alert(data);
         }
