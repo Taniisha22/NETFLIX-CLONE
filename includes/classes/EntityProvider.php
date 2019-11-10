@@ -28,12 +28,14 @@ class EntityProvider {
         return $result;
     }
 
-    public static function getEntities($con, $categoryId, $limit) {
+    public static function getTVShowEntities($con, $categoryId, $limit) {
 
-        $sql = "SELECT * FROM entities ";
+        $sql = "SELECT DISTINCT(entities.id) FROM `entities` 
+                INNER JOIN videos ON entities.id = videos.entityId 
+                WHERE videos.isMovie = 0 ";
 
         if($categoryId != null) {
-            $sql .= "WHERE categoryId=:categoryId ";
+            $sql .= "AND categoryId=:categoryId ";
         }
 
         $sql .= "ORDER BY RAND() LIMIT :limit";
@@ -49,7 +51,7 @@ class EntityProvider {
 
         $result = array();
         while($row = $query->fetch(PDO::FETCH_ASSOC)) {
-            $result[] = new Entity($con, $row);
+            $result[] = new Entity($con, $row["id"]);
         }
 
         return $result;
