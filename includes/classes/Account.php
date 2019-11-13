@@ -8,6 +8,12 @@ class Account {
         $this->con = $con;
     }
 
+    public function updateDetails($fn, $ln, $em, $un) {
+        $this->validateFirstName($fn);
+        $this->validateLastName($ln);
+        $this->validateNewEmail($em, $un);
+    }
+
     public function register($fn, $ln, $un, $em, $em2, $pw, $pw2) {
         $this->validateFirstName($fn);
         $this->validateLastName($ln);
@@ -95,6 +101,24 @@ class Account {
 
         $query = $this->con->prepare("SELECT * FROM users WHERE email=:em");
         $query->bindValue(":em", $em);
+
+        $query->execute();
+        
+        if($query->rowCount() != 0) {
+            array_push($this->errorArray, Constants::$emailTaken);
+        }
+    }
+
+    private function validateNewEmail($em, $un) {
+
+        if(!filter_var($em, FILTER_VALIDATE_EMAIL)) {
+            array_push($this->errorArray, Constants::$emailInvalid);
+            return;
+        }
+
+        $query = $this->con->prepare("SELECT * FROM users WHERE email=:em AND username != :un");
+        $query->bindValue(":em", $em);
+        $query->bindValue(":un", $un);
 
         $query->execute();
         
