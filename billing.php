@@ -12,7 +12,7 @@ use PayPal\Api\ShippingAddress;
 // Create new agreement
 $agreement = new Agreement();
 $agreement->setName('Subscription to Reeceflix')
-  ->setDescription('Recurring payments to Reeceflix')
+  ->setDescription('Recurring payments of £9.99 to Reeceflix')
   ->setStartDate(gmdate("Y-m-d\TH:i:s\Z", strtotime("+7 days", time())));
 
 // Set plan id
