@@ -45,7 +45,7 @@ function getInputValue($name) {
                 <div class="header">
                     <img src="assets/images/logo.png" title="Logo" alt="Site logo" />
                     <h3>Sign Up</h3>
-                    <span>to continue to Reeceflix</span>
+                    <span>to continue to WATCHFLIX</span>
                 </div>
 
                 <form method="POST">
